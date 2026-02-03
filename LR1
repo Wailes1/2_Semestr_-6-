@@ -1,1 +1,164 @@
+import requests
+import matplotlib.pyplot as plt
 
+# 1
+base_url = 'https://pokeapi.co/api/v2/'
+limit = 10
+url = f'{base_url}pokemon?limit={limit}'
+
+response = requests.get(url)
+pokemon_list = response.json()['results']
+
+# 2 пустой список дата
+data = []
+
+# 3 Прохожу по каждому покемону
+for pokemon in pokemon_list:
+    details_response = requests.get(pokemon['url'])
+    details = details_response.json()
+    
+    stats = {}
+    for stat_info in details['stats']:
+        stats[stat_info['stat']['name']] = stat_info['base_stat']
+    
+    pokemon_data = {
+        'id': details['id'],
+        'name': details['name'],
+        'height': details['height'],
+        'weight': details['weight'],
+        'hp': stats.get('hp', 0),
+        'attack': stats.get('attack', 0),
+        'defense': stats.get('defense', 0),
+        'order': details.get('order', 0)
+    }
+    
+    data.append(pokemon_data)
+
+# 4 Визуализация (графики)
+plt.figure(figsize=(16, 10))
+fig = plt.gcf()
+fig.set_facecolor('#E6F3FF')
+
+fig.suptitle('ЛАБОРАТОРНАЯ РАБОТА 1\nВыполнил: Лютиков Дмитрий ВКБ-33', 
+             fontsize=16, fontweight='bold', y=0.98)
+
+plt.subplots_adjust(hspace=0.5, wspace=0.4)
+
+# График 1: ID и HP   Линейный график plt.plot()
+plt.subplot(2, 3, 1)
+ids = [p['id'] for p in data]
+hps = [p['hp'] for p in data]
+names = [p['name'] for p in data]
+
+plt.plot(ids, hps, marker='o', color='blue')
+plt.xlabel('ID')
+plt.ylabel('HP')
+plt.title('HP покемонов')
+plt.grid(True, alpha=0.3)
+plt.gca().set_facecolor('#FFFFFF')
+
+# Добавляю подписи к точкам (имена покемонов)
+for i, (id_val, hp_val, name) in enumerate(zip(ids, hps, names)):
+    plt.text(id_val, hp_val + 2, name[:6],  # показываю первые 6 символов имени
+             fontsize=8, ha='center', va='bottom', 
+             bbox=dict(boxstyle='round,pad=0.3', facecolor='yellow', alpha=0.5))
+
+# График 2: Атака и защита   Точечная диаграмма plt.scatter()
+plt.subplot(2, 3, 2)
+attacks = [p['attack'] for p in data]
+defenses = [p['defense'] for p in data]
+
+plt.scatter(attacks, defenses, color='red', s=50)
+plt.xlabel('Атака')
+plt.ylabel('Защита')
+plt.title('Атака и защита')
+plt.grid(True, alpha=0.3)
+plt.gca().set_facecolor('#FFFFFF')
+
+# Добавляю подписи к точкам (имена покемонов)
+for i, (attack, defense, name) in enumerate(zip(attacks, defenses, names)):
+    plt.text(attack, defense + 1, name[:6],  # показываю первые 6 символов имени
+             fontsize=8, ha='center', va='bottom', rotation=0,
+             bbox=dict(boxstyle='round,pad=0.3', facecolor='lightblue', alpha=0.5))
+
+# График 3: Вес   Столбчатая диаграмма plt.bar()
+plt.subplot(2, 3, 3)
+weights = [p['weight'] for p in data]
+bars = plt.bar(range(len(names)), weights, color='green')
+plt.xlabel('Покемоны')
+plt.ylabel('Вес')
+plt.title('Вес покемонов')
+short_names = [n[:6] for n in names]
+plt.xticks(range(len(names)), short_names, rotation=45, fontsize=9)
+plt.gca().set_facecolor('#FFFFFF')
+
+# Добавляем значения на столбцы
+for bar, weight in zip(bars, weights):
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2., height, 
+             f'{int(height)}', ha='center', va='bottom', fontsize=8)
+
+# График 4: Рост   Горизонтальная столбчатая диаграмма plt.barh()
+plt.subplot(2, 3, 4)
+heights = [p['height'] for p in data]
+plt.barh(range(len(names)), heights, color='orange')
+plt.xlabel('Рост')
+plt.ylabel('Покемоны')
+plt.title('Рост покемонов')
+plt.yticks(range(len(names)), short_names, fontsize=9)
+plt.gca().set_facecolor('#FFFFFF')
+
+# График 5: Длина имени покемона   Гистограмма plt.hist()
+plt.subplot(2, 3, 5)
+# Считаю количество букв в именах покемонов
+name_lengths = [len(p['name']) for p in data]
+
+# Создаю гистограмму распределения длин имен
+bars = plt.hist(name_lengths, bins=range(min(name_lengths), max(name_lengths)+2), 
+                color='purple', edgecolor='black', alpha=0.7, align='left')
+
+plt.xlabel('Количество букв в имени')
+plt.ylabel('Количество покемонов')
+plt.title('Длина имен покемонов')
+plt.grid(True, alpha=0.3)
+plt.gca().set_facecolor('#FFFFFF')
+
+# Добавляю подписи - какие покемоны в каждом столбце
+for i in range(len(bars[0])):
+    if bars[0][i] > 0:  # если есть покемоны в этом столбце
+        length = bars[1][i]  # длина имени
+        # Нахожу всех покемонов с этой длиной имени
+        pokemons_with_length = [p['name'] for p in data if len(p['name']) == length]
+        pokemon_text = ', '.join(pokemons_with_length)[:20]  # первые 20 символов
+        if len(', '.join(pokemons_with_length)) > 20:
+            pokemon_text += '...'
+        
+        plt.text(length, bars[0][i] + 0.1, pokemon_text, 
+                 fontsize=7, ha='center', va='bottom', rotation=0,
+                 bbox=dict(boxstyle='round,pad=0.2', facecolor='white', alpha=0.7))
+
+# График 6: Сравнение характеристик первого покемона    Круговая диаграмма plt.pie()
+plt.subplot(2, 3, 6)
+first = data[0]
+labels = ['HP', 'Атака', 'Защита']
+values = [first['hp'], first['attack'], first['defense']]
+plt.pie(values, labels=labels, autopct='%1.0f%%', colors=['blue', 'red', 'green'])
+plt.title(f'Характеристики {first["name"]}')
+plt.gca().set_facecolor('#FFFFFF')
+
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
+
+# Вывожу полученные данные
+print("\nДАННЫЕ О ПОКЕМОНАХ:")
+for pokemon in data:
+    print(f"ID: {pokemon['id']:3} | Имя: {pokemon['name']:12} | Букв в имени: {len(pokemon['name']):2} | HP: {pokemon['hp']:3} | Атака: {pokemon['attack']:3}")
+
+# Дополнительная статистика по длинам имен
+print("\nСТАТИСТИКА ПО ДЛИНАМ ИМЕН:")
+unique_lengths = sorted(set(name_lengths))
+for length in unique_lengths:
+    count = name_lengths.count(length)
+    pokemons = [p['name'] for p in data if len(p['name']) == length]
+    print(f"Длина {length} букв: {count} покемонов - {', '.join(pokemons)}")
+print(f"Средняя длина имени: {sum(name_lengths)/len(name_lengths):.1f} букв")
