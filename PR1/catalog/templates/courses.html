@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Все курсы по саморазвитию{% endblock %}
+
+{% block content %}
+<h1 class="page-title">🎓 Каталог курсов</h1>
+
+<p style="margin-bottom: 30px; font-size: 1.1em;">
+    Выберите курс, который поможет вам освоить новый навык или улучшить качество жизни. 
+    Все программы разработаны практикующими экспертами.
+</p>
+
+<div class="course-grid">
+    {% for course in courses %}
+    <div class="course-card">
+        <div style="background: {% cycle '#bbdefb' '#c8e6c9' '#f8bbd0' '#e1bee7' '#fff9c4' %}; padding: 20px; text-align: center;">
+            <span style="font-size: 40px;">
+                {% if course.category == 'Транспорт' %}🚗
+                {% elif course.category == 'Здоровье' %}💪
+                {% elif course.category == 'Красота' %}👔
+                {% else %}📚{% endif %}
+            </span>
+        </div>
+        <div style="padding: 20px;">
+            <span class="course-category">{{ course.category }}</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0;">
+                <h3 style="margin: 0;">{{ course.title }}</h3>
+                <span class="rating">★ {{ course.rating }}</span>
+            </div>
+            <p style="color: #666; margin-bottom: 15px;">{{ course.description|truncatechars:100 }}</p>
+            
+            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                <span>⏱️ {{ course.duration }}</span>
+                <span style="font-weight: bold; color: #1565c0;">{{ course.price }} ₽</span>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <a href="/courses/{{ course.id }}/" class="btn">Подробнее</a>
+                <span class="badge">{{ course.level }}</span>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="card">
+        <p>Курсы не найдены.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

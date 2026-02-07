@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Наши эксперты{% endblock %}
+
+{% block content %}
+<h1 class="page-title">👨‍🏫 Наши эксперты</h1>
+
+<p style="margin-bottom: 30px; font-size: 1.1em;">
+    Все курсы ведут практикующие специалисты с многолетним опытом. 
+    Они не только преподают теорию, но и делятся реальными кейсами из своей практики.
+</p>
+
+<div class="course-grid">
+    {% for author in authors %}
+    <div class="course-card">
+        <div style="background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); padding: 30px 20px; text-align: center; color: white;">
+            <div style="font-size: 48px; margin-bottom: 10px;">👨‍🏫</div>
+            <h3 style="margin: 0; color: white;">{{ author.name }}</h3>
+            <p style="opacity: 0.9; margin-top: 5px;">{{ author.specialization }}</p>
+        </div>
+        <div style="padding: 20px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span>📅 Стаж: {{ author.experience }}</span>
+                <span>📚 Курсов: {{ author.courses_count }}</span>
+            </div>
+            
+            <p style="color: #666; margin-bottom: 20px;">{{ author.bio|truncatechars:150 }}</p>
+            
+            <a href="/authors/{{ author.id }}/" class="btn" style="width: 100%; text-align: center;">
+                Профиль эксперта
+            </a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="card">
+        <p>Эксперты не найдены.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

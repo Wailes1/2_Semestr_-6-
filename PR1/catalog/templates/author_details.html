@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Эксперт: {{ author.name }}{% endblock %}
+
+{% block content %}
+{% if author %}
+<div class="card">
+    <a href="/authors/" style="color: #2196f3; text-decoration: none; margin-bottom: 20px; display: inline-block;">
+        ← Назад к экспертам
+    </a>
+    
+    <div style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+            <div style="background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%); padding: 40px; border-radius: 15px; color: white; text-align: center;">
+                <div style="font-size: 72px; margin-bottom: 20px;">👨‍🏫</div>
+                <h2 style="margin: 0; color: white;">{{ author.name }}</h2>
+                <p style="opacity: 0.9; margin-top: 10px;">{{ author.specialization }}</p>
+            </div>
+            
+            <div style="background: white; border-radius: 10px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
+                <h3 style="color: #1565c0; margin-bottom: 15px;">📊 Статистика</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; color: #2196f3;">📅</div>
+                        <div>Опыт</div>
+                        <div style="font-weight: bold;">{{ author.experience }}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; color: #2196f3;">📚</div>
+                        <div>Курсов</div>
+                        <div style="font-weight: bold;">{{ author.courses_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="flex: 2; min-width: 300px;">
+            <h3 style="color: #1565c0; margin-bottom: 15px;">📖 Биография</h3>
+            <div style="background: #f5f5f5; padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                <p style="line-height: 1.7; font-size: 1.1em;">{{ author.bio }}</p>
+            </div>
+            
+            <h3 style="color: #1565c0; margin-bottom: 20px;">🎓 Курсы эксперта</h3>
+            
+            {% with courses=COURSES %}
+            <div class="course-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+                {% for course in courses %}
+                    {% if course.author_id == author.id %}
+                    <div class="course-card">
+                        <div style="padding: 20px;">
+                            <span class="course-category">{{ course.category }}</span>
+                            <h4 style="margin: 10px 0;">{{ course.title }}</h4>
+                            <div style="display: flex; justify-content: space-between; margin: 15px 0;">
+                                <span>{{ course.duration }}</span>
+                                <span style="font-weight: bold; color: #1565c0;">{{ course.price }} ₽</span>
+                            </div>
+                            <a href="/courses/{{ course.id }}/" class="btn" style="width: 100%; text-align: center;">
+                                Подробнее о курсе
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <h1>Эксперт не найден</h1>
+    <p>Запрошенный эксперт не существует или был удален.</p>
+    <a href="/authors/" class="btn">Вернуться к списку экспертов</a>
+</div>
+{% endif %}
+{% endblock %}

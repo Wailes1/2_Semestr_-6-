@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Страница не найдена - 404{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 60px 20px;">
+    <div style="font-size: 120px; color: #2196f3; margin-bottom: 20px;">🔍</div>
+    <h1 style="color: #1565c0; font-size: 3em; margin-bottom: 20px;">404</h1>
+    <h2 style="color: #333; margin-bottom: 25px;">Страница не найдена</h2>
+    
+    <div style="max-width: 600px; margin: 0 auto 40px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+        <p style="font-size: 1.1em; margin-bottom: 25px;">
+            Похоже, что страница, которую вы ищете, не существует или была перемещена.
+        </p>
+        
+        <p style="color: #666; margin-bottom: 30px;">
+            Проверьте правильность введённого адреса или воспользуйтесь навигацией ниже.
+        </p>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+            <a href="/" class="btn" style="background: #4caf50;">
+                🏠 На главную
+            </a>
+            <a href="/courses/" class="btn">
+                📚 Все курсы
+            </a>
+            <a href="/authors/" class="btn" style="background: #9c27b0;">
+                👨‍🏫 Наши эксперты
+            </a>
+        </div>
+    </div>
+    
+    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; max-width: 800px; margin: 0 auto;">
+        <h3 style="color: #1565c0; margin-bottom: 15px;">💡 Популярные страницы</h3>
+        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <a href="/courses/1/" style="color: #2196f3; text-decoration: none;">🚗 Курс по вождению</a>
+            <a href="/courses/2/" style="color: #2196f3; text-decoration: none;">💪 Фитнес-трансформация</a>
+            <a href="/courses/3/" style="color: #2196f3; text-decoration: none;">👔 Стиль и имидж</a>
+            <a href="/authors/1/" style="color: #2196f3; text-decoration: none;">👨‍🏫 Алексей Соколов</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
