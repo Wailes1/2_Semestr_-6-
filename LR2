@@ -1,0 +1,161 @@
+import re
+
+# 1. Валидация логина
+def validate_login(login):
+    if not login:
+        return False
+    
+    if not login[0].isalpha():
+        return False
+    
+    if not re.match(r'^[a-zA-Z0-9_]+$', login):
+        return False
+    
+    if len(login) < 5 or len(login) > 20:
+        return False
+    
+    if login.endswith('_'):
+        return False
+    
+    return True
+
+# 2. Поиск дат в тексте
+def find_dates(text):
+    pattern = r'\b(\d{1,2})[./-](\d{1,2})[./-](\d{2,4})\b'
+    matches = re.findall(pattern, text)
+    
+    dates = []
+    for day, month, year in matches:
+        day = day.zfill(2)
+        month = month.zfill(2)
+        if len(year) == 2:
+            year = '20' + year
+        dates.append(f"{day}.{month}.{year}")
+    
+    return dates
+
+# 3. Парсинг логов
+def parse_log(log_line):
+    pattern = r'(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2}) \w+ user=(\w+) action=(\w+) ip=([\d.]+)'
+    match = re.match(pattern, log_line)
+    
+    if not match:
+        return None
+    
+    return {
+        'date': match.group(1),
+        'time': match.group(2),
+        'user': match.group(3),
+        'action': match.group(4),
+        'ip': match.group(5)
+    }
+
+# 4. Проверка пароля
+def validate_password(password):
+    if len(password) < 8:
+        return False
+    
+    if not re.search(r'[A-Z]', password):
+        return False
+    
+    if not re.search(r'[a-z]', password):
+        return False
+    
+    if not re.search(r'\d', password):
+        return False
+    
+    if not re.search(r'[!@#$%^&*]', password):
+        return False
+    
+    return True
+
+# 5. E-mail с ограниченными доменами
+def validate_email_with_domains(email, domains):
+    if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
+        return False
+    
+    domain = email.split('@')[1]
+    return domain in domains
+
+# 6. Нормализация телефонных номеров
+def normalize_phone(phone):
+    cleaned = re.sub(r'\D', '', phone)
+    
+    if cleaned.startswith('8'):
+        cleaned = '7' + cleaned[1:]
+    
+    if not cleaned.startswith('7'):
+        cleaned = '7' + cleaned
+    
+    if len(cleaned) != 11:
+        return "Неверный формат номера"
+    
+    return '+' + cleaned
+
+# Главное меню
+def main():
+    while True:
+        print("ЛАБОРАТОРНАЯ РАБОТА 2")
+        print("="*50)
+        print("1. Валидация логина")
+        print("2. Поиск дат в тексте")
+        print("3. Парсинг логов")
+        print("4. Проверка пароля")
+        print("5. E-mail с ограниченными доменами")
+        print("6. Нормализация телефонных номеров")
+        print("0. Выход")
+        
+        choice = input("Выберите задание (1-6) или 0 для выхода: ")
+        
+        if choice == '1':
+            print("\n--- Валидация логина ---")
+            login = input("Введите логин: ")
+            result = validate_login(login)
+            print(f"Результат: {result}")
+            
+        elif choice == '2':
+            print("\n--- Поиск дат в тексте ---")
+            text = input("Введите текст: ")
+            dates = find_dates(text)
+            print(f"Найдены даты: {dates}")
+            
+        elif choice == '3':
+            print("\n--- Парсинг логов ---")
+            print("Пример лога: 2024-02-10 14:23:01 INFO user=ada action=login ip=192.168.1.15")
+            log = input("Введите лог (или нажмите Enter для примера): ")
+            if not log:
+                log = "2024-02-10 14:23:01 INFO user=ada action=login ip=192.168.1.15"
+            result = parse_log(log)
+            print(f"Результат: {result}")
+            
+        elif choice == '4':
+            print("\n--- Проверка пароля ---")
+            password = input("Введите пароль: ")
+            result = validate_password(password)
+            print(f"Результат: {result}")
+            
+        elif choice == '5':
+            print("\n--- E-mail с ограниченными доменами ---")
+            domains = ['gmail.com', 'yandex.ru', 'edu.ru']
+            print(f"Допустимые домены: {domains}")
+            email = input("Введите email: ")
+            result = validate_email_with_domains(email, domains)
+            print(f"Результат: {result}")
+            
+        elif choice == '6':
+            print("\n--- Нормализация телефонных номеров ---")
+            phone = input("Введите телефон: ")
+            result = normalize_phone(phone)
+            print(f"Нормализованный номер: {result}")
+            
+        elif choice == '0':
+            print("Выход из программы.")
+            break
+            
+        else:
+            print("Неверный выбор. Попробуйте снова.")
+        
+        input("\nНажмите Enter чтобы продолжить...")
+
+if __name__ == "__main__":
+    main()
