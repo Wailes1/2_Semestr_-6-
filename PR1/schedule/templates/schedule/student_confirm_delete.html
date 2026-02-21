@@ -1,0 +1,18 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>Удаление студента</h1>
+
+<div style="background: #fed7d7; padding: 20px; border-radius: 10px;">
+    <p style="font-size: 1.2em;">Вы уверены, что хотите удалить студента?</p>
+    <p><strong>{{ student.last_name }} {{ student.first_name }}</strong></p>
+    <p>Email: {{ student.email }}</p>
+    <p>Курсов: {{ student.courses.count }}</p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
+    <a href="/schedule/students/{{ student.id }}/" class="btn">Отмена</a>
+</form>
+{% endblock %}

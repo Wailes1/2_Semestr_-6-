@@ -1,0 +1,49 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>{% if teacher %}Редактирование{% else %}Добавление{% endif %} преподавателя</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label>Имя:</label>
+        <input type="text" name="first_name" value="{{ teacher.first_name|default:'' }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Фамилия:</label>
+        <input type="text" name="last_name" value="{{ teacher.last_name|default:'' }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ teacher.email|default:'' }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Специализация:</label>
+        <input type="text" name="specialization" value="{{ teacher.specialization|default:'' }}" required>
+    </div>
+    
+    <h3>Дополнительная информация</h3>
+    
+    <div class="form-group">
+        <label>Образование:</label>
+        <input type="text" name="education" value="{{ teacher.info.education|default:'' }}">
+    </div>
+    
+    <div class="form-group">
+        <label>Биография:</label>
+        <textarea name="bio" rows="4">{{ teacher.info.bio|default:'' }}</textarea>
+    </div>
+    
+    <div class="form-group">
+        <label>Кабинет:</label>
+        <input type="text" name="office_number" value="{{ teacher.info.office_number|default:'' }}">
+    </div>
+    
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="/schedule/teachers/" class="btn">Отмена</a>
+</form>
+{% endblock %}

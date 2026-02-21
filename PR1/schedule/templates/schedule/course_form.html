@@ -1,0 +1,34 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>{% if course %}Редактирование{% else %}Добавление{% endif %} курса</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label>Название курса:</label>
+        <input type="text" name="title" value="{{ course.title|default:'' }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Цена (руб):</label>
+        <input type="number" name="price" value="{{ course.price|default:'' }}" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Преподаватель:</label>
+        <select name="teacher">
+            <option value="">-- Не выбран --</option>
+            {% for teacher in teachers %}
+            <option value="{{ teacher.id }}" {% if course and course.teacher.id == teacher.id %}selected{% endif %}>
+                {{ teacher.last_name }} {{ teacher.first_name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Сохранить</button>
+    <a href="/schedule/courses/" class="btn">Отмена</a>
+</form>
+{% endblock %}

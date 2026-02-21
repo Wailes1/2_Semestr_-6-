@@ -1,0 +1,59 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>🎓 Список студентов</h1>
+
+<a href="/schedule/students/create/" class="btn btn-success">➕ Добавить студента</a>
+
+<!-- ДОБАВЛЯЕМ ФИЛЬТР -->
+<div style="margin: 20px 0; padding: 15px; background: #f0f8ff; border-radius: 5px; border: 1px solid #4CAF50;">
+    <form method="get">
+        <label>
+            <input type="checkbox" name="no_courses" value="1" 
+                   {% if request.GET.no_courses %}checked{% endif %}
+                   onchange="this.form.submit()">
+            <strong>🔍 Показать только студентов без курсов</strong>
+        </label>
+        {% if request.GET.no_courses %}
+        <a href="/schedule/students/" style="margin-left: 20px;">❌ Сбросить фильтр</a>
+        {% endif %}
+    </form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Email</th>
+            <th>Курсов</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.first_name }}</td>
+            <td>{{ student.last_name }}</td>
+            <td>{{ student.email }}</td>
+            <td>
+                {% if student.courses.count == 0 %}
+                    <strong style="color: red;">{{ student.courses.count }}</strong>
+                {% else %}
+                    <strong style="color: green;">{{ student.courses.count }}</strong>
+                {% endif %}
+            </td>
+            <td>
+                <a href="/schedule/students/{{ student.id }}/" class="btn">👁️</a>
+                <a href="/schedule/students/{{ student.id }}/update/" class="btn">✏️</a>
+                <a href="/schedule/students/{{ student.id }}/delete/" class="btn btn-danger">🗑️</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align: center;">Нет студентов</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
