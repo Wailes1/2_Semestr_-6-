@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Teacher, TeacherInfo, Course, Student
+from .forms import TeacherForm
 
 
 # ==================== ГЛАВНАЯ ====================
@@ -45,26 +46,36 @@ def teacher_detail(request, teacher_id):
 
 
 def teacher_create(request):
-    """Создание преподавателя"""
+    """Создание преподавателя с использованием формы"""
     if request.method == 'POST':
-        # Создаем преподавателя
-        teacher = Teacher.objects.create(
-            first_name=request.POST['first_name'],
-            last_name=request.POST['last_name'],
-            email=request.POST['email'],
-            specialization=request.POST['specialization']
-        )
-        # Создаем дополнительную информацию
-        TeacherInfo.objects.create(
-            teacher=teacher,
-            bio=request.POST.get('bio', ''),
-            education=request.POST.get('education', ''),
-            office_number=request.POST.get('office_number', '')
-        )
-        messages.success(request, 'Преподаватель создан!')
-        return redirect('teacher_detail', teacher_id=teacher.id)
+        form = TeacherForm(request.POST)
+        if form.is_valid():
+            # Данные из формы валидны - создаём преподавателя
+            teacher = Teacher.objects.create(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                email=form.cleaned_data['email'],
+                specialization=form.cleaned_data['specialization']
+            )
+            
+            # Создаем дополнительную информацию (необязательные поля)
+            TeacherInfo.objects.create(
+                teacher=teacher,
+                bio=form.cleaned_data.get('bio', ''),
+                education=form.cleaned_data.get('education', ''),
+                office_number=form.cleaned_data.get('office_number', '')
+            )
+            
+            messages.success(request, 'Преподаватель успешно создан!')
+            return redirect('teacher_detail', teacher_id=teacher.id)
+        else:
+            # Форма невалидна - показываем ошибки
+            messages.error(request, 'Пожалуйста, исправьте ошибки в форме')
+    else:
+        form = TeacherForm()
     
-    return render(request, 'schedule/teacher_form.html')
+    return render(request, 'schedule/teacher_form.html', {'form': form})
+    
 
 
 def teacher_update(request, teacher_id):

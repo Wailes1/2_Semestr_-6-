@@ -3,62 +3,134 @@
 <head>
     <title>{% block title %}Расписание{% endblock %}</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .nav {
+        
+        /* Шапка сайта */
+        header {
             background: white;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .nav a {
+        
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .nav-links a {
             color: #333;
             text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 5px;
+            padding: 8px 15px;
             border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
         }
-        .nav a:hover {
+        
+        .nav-links a:hover {
             background: #667eea;
             color: white;
         }
-        .container {
+        
+        /* Основной контент */
+        main {
+            flex: 1;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 30px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .content-wrapper {
             background: white;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #333;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+        
+        /* Подвал */
+        footer {
+            background: #2d3748;
+            color: white;
+            padding: 30px 20px;
+            margin-top: auto;
         }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e0;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        /* Таблицы */
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
+        
         th {
             background: #667eea;
             color: white;
             padding: 12px;
             text-align: left;
         }
+        
         td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
         }
+        
         tr:hover {
-            background: #f5f5f5;
+            background: #f7fafc;
         }
+        
+        /* Кнопки */
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -69,95 +141,168 @@
             border: none;
             cursor: pointer;
             margin: 5px;
+            transition: all 0.3s;
         }
+        
         .btn:hover {
             background: #5a67d8;
             transform: translateY(-2px);
         }
-        .btn-danger {
-            background: #f56565;
-        }
-        .btn-danger:hover {
-            background: #e53e3e;
-        }
+        
         .btn-success {
             background: #48bb78;
         }
+        
         .btn-success:hover {
             background: #38a169;
         }
+        
+        .btn-danger {
+            background: #f56565;
+        }
+        
+        .btn-danger:hover {
+            background: #e53e3e;
+        }
+        
+        /* Сообщения */
         .messages {
             margin: 20px 0;
         }
+        
         .success {
             background: #c6f6d5;
             color: #22543d;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
         }
+        
         .error {
             background: #fed7d7;
             color: #742a2a;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
         }
+        
+        /* Формы */
         .form-group {
             margin: 20px 0;
         }
+        
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: bold;
+            color: #4a5568;
         }
-        .form-group input, .form-group select, .form-group textarea {
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
         }
-        .stats {
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .help-text {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .errorlist {
+            color: #e53e3e;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0;
+        }
+        
+        /* Фильтры */
+        .filter-bar {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        
+        /* Статистика */
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
+        
         .stat-card {
             background: #f7fafc;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             text-align: center;
         }
+        
         .stat-card h3 {
-            font-size: 2em;
+            font-size: 2.5em;
             color: #667eea;
-            margin: 0;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="/">🏠 На главный сайт</a>
-        <a href="/schedule/">📊 Главная</a>
-        <a href="/schedule/teachers/">👨‍🏫 Преподаватели</a>
-        <a href="/schedule/courses/">📚 Курсы</a>
-        <a href="/schedule/students/">🎓 Студенты</a>
-    </div>
+    <header>
+        <nav>
+            <a href="/schedule/" class="logo">📚 Schedule Manager</a>
+            <ul class="nav-links">
+                <li><a href="/schedule/teachers/">Преподаватели</a></li>
+                <li><a href="/schedule/courses/">Курсы</a></li>
+                <li><a href="/schedule/students/">Студенты</a></li>
+                <li><a href="/schedule/teachers/create/">➕ Добавить преподавателя</a></li>
+                <li><a href="/schedule/courses/create/">➕ Добавить курс</a></li>
+            </ul>
+        </nav>
+    </header>
     
-    <div class="container">
-        {% if messages %}
-        <div class="messages">
-            {% for message in messages %}
-            <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
-                {{ message }}
+    <main>
+        <div class="content-wrapper">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            {% endif %}
+            
+            {% block content %}
+            {% endblock %}
         </div>
-        {% endif %}
-        
-        {% block content %}
-        {% endblock %}
-    </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2026 Система управления расписанием
+            </div>
+            <div class="footer-links">
+                <a href="/">Главный сайт</a>
+                <a href="/admin/">Админ-панель</a>
+                <a href="/schedule/">Расписание</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

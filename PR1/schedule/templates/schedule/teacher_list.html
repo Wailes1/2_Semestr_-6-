@@ -1,65 +1,73 @@
 {% extends 'schedule/base.html' %}
 
 {% block content %}
-<h1>👨‍🏫 Список преподавателей</h1>
-
-<a href="/schedule/teachers/create/" class="btn btn-success">➕ Добавить преподавателя</a>
-
-<!-- ФИЛЬТР ПО КОЛИЧЕСТВУ КУРСОВ -->
-<div style="margin: 20px 0; padding: 15px; background: #f0f8ff; border-radius: 5px; border: 1px solid #4CAF50;">
-    <form method="get">
-        <label for="min_courses"><strong>🔍 Преподаватели с количеством курсов:</strong></label>
-        <select name="min_courses" id="min_courses" onchange="this.form.submit()" style="padding: 8px; margin: 0 10px;">
-            <option value="">Все преподаватели</option>
-            <option value="1" {% if min_courses == '1' %}selected{% endif %}>≥ 1 курс</option>
-            <option value="2" {% if min_courses == '2' %}selected{% endif %}>≥ 2 курса</option>
-            <option value="3" {% if min_courses == '3' %}selected{% endif %}>≥ 3 курса</option>
-        </select>
-        
-        {% if min_courses %}
-        <a href="/schedule/teachers/" style="margin-left: 20px; color: #f44336;">❌ Сбросить фильтр</a>
-        {% endif %}
-    </form>
-</div>
-
-<table>
-    <thead>
-        <tr>
-            <th>Имя</th>
-            <th>Фамилия</th>
-            <th>Email</th>
-            <th>Специализация</th>
-            <th>Количество курсов</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for teacher in teachers %}
-        <tr>
-            <td>{{ teacher.first_name }}</td>
-            <td>{{ teacher.last_name }}</td>
-            <td>{{ teacher.email }}</td>
-            <td>{{ teacher.specialization }}</td>
-            <td>
-                {% if teacher.course_count >= 2 %}
-                    <strong style="color: green;">{{ teacher.course_count }}</strong>
-                {% elif teacher.course_count == 1 %}
-                    <strong style="color: orange;">{{ teacher.course_count }}</strong>
-                {% else %}
-                    <strong style="color: red;">{{ teacher.course_count }}</strong>
-                {% endif %}
-            </td>
-            <td>
+<section>
+    <h1>👨‍🏫 Список преподавателей</h1>
+    
+    <a href="/schedule/teachers/create/" class="btn btn-success">➕ Добавить преподавателя</a>
+    
+    <!-- Фильтр по количеству курсов -->
+    <div class="filter-bar">
+        <form method="get">
+            <label for="min_courses"><strong>🔍 Преподаватели с количеством курсов:</strong></label>
+            <select name="min_courses" id="min_courses" onchange="this.form.submit()" style="padding: 8px; margin: 0 10px;">
+                <option value="">Все преподаватели</option>
+                <option value="1" {% if request.GET.min_courses == '1' %}selected{% endif %}>≥ 1 курс</option>
+                <option value="2" {% if request.GET.min_courses == '2' %}selected{% endif %}>≥ 2 курса</option>
+                <option value="3" {% if request.GET.min_courses == '3' %}selected{% endif %}>≥ 3 курса</option>
+            </select>
+            
+            {% if request.GET.min_courses %}
+            <a href="/schedule/teachers/" style="margin-left: 20px; color: #f56565;">❌ Сбросить</a>
+            {% endif %}
+        </form>
+    </div>
+    
+    {% for teacher in teachers %}
+    <article style="margin-bottom: 30px; padding: 20px; background: #f7fafc; border-radius: 10px; border-left: 5px solid #667eea;">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 style="color: #4a5568;">{{ teacher.last_name }} {{ teacher.first_name }}</h2>
+            <div>
                 <a href="/schedule/teachers/{{ teacher.id }}/" class="btn">👁️</a>
                 <a href="/schedule/teachers/{{ teacher.id }}/update/" class="btn">✏️</a>
                 <a href="/schedule/teachers/{{ teacher.id }}/delete/" class="btn btn-danger">🗑️</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="6" style="text-align: center;">Нет преподавателей</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </div>
+        </header>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <p><strong>Email:</strong> {{ teacher.email }}</p>
+                <p><strong>Специализация:</strong> {{ teacher.specialization }}</p>
+                <p><strong>Всего курсов:</strong> 
+                    <span style="font-weight: bold; color: {% if teacher.courses.count >= 2 %}#48bb78{% else %}#f56565{% endif %};">
+                        {{ teacher.courses.count }}
+                    </span>
+                </p>
+            </div>
+            
+            <div>
+                <h4 style="color: #4a5568; margin-bottom: 10px;">📚 Курсы преподавателя:</h4>
+                {% if teacher.courses.all %}
+                <ul style="list-style-type: none; padding: 0;">
+                    {% for course in teacher.courses.all %}
+                    <li style="padding: 8px; margin: 5px 0; background: white; border-radius: 5px; border-left: 3px solid #48bb78;">
+                        <a href="/schedule/courses/{{ course.id }}/" style="color: #2d3748; text-decoration: none;">
+                            {{ course.title }} ({{ course.price }} руб.)
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p style="color: #a0aec0; font-style: italic;">Нет курсов</p>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+    {% empty %}
+    <article style="padding: 40px; text-align: center; background: #f7fafc; border-radius: 10px;">
+        <p style="font-size: 1.2em; color: #718096;">😕 Преподавателей пока нет</p>
+        <a href="/schedule/teachers/create/" class="btn btn-success" style="margin-top: 20px;">➕ Добавить первого преподавателя</a>
+    </article>
+    {% endfor %}
+</section>
 {% endblock %}
