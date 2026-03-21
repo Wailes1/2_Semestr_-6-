@@ -2,29 +2,300 @@
 
 {% block content %}
 <section>
-    <h1>{% if form.instance.pk %}Редактирование{% else %}Добавление{% endif %} преподавателя</h1>
+    <h1>{{ title|default:"Добавление преподавателя" }}</h1>
     
-    <form method="post">
+    <form method="post" novalidate>
         {% csrf_token %}
         
-        {{ form.non_field_errors }}
+        <!-- Общие ошибки формы (не связанные с конкретными полями) -->
+        {% if form.non_field_errors %}
+        <div style="background: #fed7d7; border-left: 4px solid #f56565; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+            <ul style="margin: 0; padding-left: 20px;">
+                {% for error in form.non_field_errors %}
+                <li style="color: #c53030;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         
-        {% for field in form %}
+        <h3>Основная информация</h3>
+        
+        <!-- Поле Имя -->
         <div class="form-group">
-            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-            {{ field }}
-            {% if field.help_text %}
-            <div class="help-text">{{ field.help_text }}</div>
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}:</label>
+            {{ form.first_name }}
+            {% if form.first_name.help_text %}
+            <div class="help-text">{{ form.first_name.help_text }}</div>
             {% endif %}
-            {% if field.errors %}
+            {% if form.first_name.errors %}
             <ul class="errorlist">
-                {% for error in field.errors %}
-                <li>{{ error }}</li>
+                {% for error in form.first_name.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
                 {% endfor %}
             </ul>
             {% endif %}
         </div>
-        {% endfor %}
+        
+        <!-- Поле Фамилия -->
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}:</label>
+            {{ form.last_name }}
+            {% if form.last_name.help_text %}
+            <div class="help-text">{{ form.last_name.help_text }}</div>
+            {% endif %}
+            {% if form.last_name.errors %}
+            <ul class="errorlist">
+                {% for error in form.last_name.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Email -->
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}:</label>
+            {{ form.email }}
+            {% if form.email.help_text %}
+            <div class="help-text">{{ form.email.help_text }}</div>
+            {% endif %}
+            {% if form.email.errors %}
+            <ul class="errorlist">
+                {% for error in form.email.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Телефон -->
+        <div class="form-group">
+            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}:</label>
+            {{ form.phone }}
+            {% if form.phone.help_text %}
+            <div class="help-text">{{ form.phone.help_text }}</div>
+            {% endif %}
+            {% if form.phone.errors %}
+            <ul class="errorlist">
+                {% for error in form.phone.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Специализация -->
+        <div class="form-group">
+            <label for="{{ form.specialization.id_for_label }}">{{ form.specialization.label }}:</label>
+            {{ form.specialization }}
+            {% if form.specialization.help_text %}
+            <div class="help-text">{{ form.specialization.help_text }}</div>
+            {% endif %}
+            {% if form.specialization.errors %}
+            <ul class="errorlist">
+                {% for error in form.specialization.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Стаж -->
+        <div class="form-group">
+            <label for="{{ form.experience_years.id_for_label }}">{{ form.experience_years.label }}:</label>
+            {{ form.experience_years }}
+            {% if form.experience_years.help_text %}
+            <div class="help-text">{{ form.experience_years.help_text }}</div>
+            {% endif %}
+            {% if form.experience_years.errors %}
+            <ul class="errorlist">
+                {% for error in form.experience_years.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Дата найма -->
+        <div class="form-group">
+            <label for="{{ form.hire_date.id_for_label }}">{{ form.hire_date.label }}:</label>
+            {{ form.hire_date }}
+            {% if form.hire_date.help_text %}
+            <div class="help-text">{{ form.hire_date.help_text }}</div>
+            {% endif %}
+            {% if form.hire_date.errors %}
+            <ul class="errorlist">
+                {% for error in form.hire_date.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Ученая степень -->
+        <div class="form-group">
+            <label for="{{ form.degree.id_for_label }}">{{ form.degree.label }}:</label>
+            {{ form.degree }}
+            {% if form.degree.help_text %}
+            <div class="help-text">{{ form.degree.help_text }}</div>
+            {% endif %}
+            {% if form.degree.errors %}
+            <ul class="errorlist">
+                {% for error in form.degree.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Рейтинг -->
+        <div class="form-group">
+            <label for="{{ form.rating.id_for_label }}">{{ form.rating.label }}:</label>
+            {{ form.rating }}
+            {% if form.rating.help_text %}
+            <div class="help-text">{{ form.rating.help_text }}</div>
+            {% endif %}
+            {% if form.rating.errors %}
+            <ul class="errorlist">
+                {% for error in form.rating.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Зарплата -->
+        <div class="form-group">
+            <label for="{{ form.salary.id_for_label }}">{{ form.salary.label }}:</label>
+            {{ form.salary }}
+            {% if form.salary.help_text %}
+            <div class="help-text">{{ form.salary.help_text }}</div>
+            {% endif %}
+            {% if form.salary.errors %}
+            <ul class="errorlist">
+                {% for error in form.salary.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Активен (чекбокс) -->
+        <div class="form-group">
+            <label for="{{ form.is_active.id_for_label }}">
+                {{ form.is_active }} {{ form.is_active.label }}
+            </label>
+            {% if form.is_active.help_text %}
+            <div class="help-text">{{ form.is_active.help_text }}</div>
+            {% endif %}
+            {% if form.is_active.errors %}
+            <ul class="errorlist">
+                {% for error in form.is_active.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <hr>
+        
+        <h3>Дополнительная информация</h3>
+        
+        <!-- Поле Биография -->
+        <div class="form-group">
+            <label for="{{ info_form.bio.id_for_label }}">{{ info_form.bio.label }}:</label>
+            {{ info_form.bio }}
+            {% if info_form.bio.help_text %}
+            <div class="help-text">{{ info_form.bio.help_text }}</div>
+            {% endif %}
+            {% if info_form.bio.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.bio.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Образование -->
+        <div class="form-group">
+            <label for="{{ info_form.education.id_for_label }}">{{ info_form.education.label }}:</label>
+            {{ info_form.education }}
+            {% if info_form.education.help_text %}
+            <div class="help-text">{{ info_form.education.help_text }}</div>
+            {% endif %}
+            {% if info_form.education.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.education.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Кабинет -->
+        <div class="form-group">
+            <label for="{{ info_form.office_number.id_for_label }}">{{ info_form.office_number.label }}:</label>
+            {{ info_form.office_number }}
+            {% if info_form.office_number.help_text %}
+            <div class="help-text">{{ info_form.office_number.help_text }}</div>
+            {% endif %}
+            {% if info_form.office_number.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.office_number.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Награды -->
+        <div class="form-group">
+            <label for="{{ info_form.awards.id_for_label }}">{{ info_form.awards.label }}:</label>
+            {{ info_form.awards }}
+            {% if info_form.awards.help_text %}
+            <div class="help-text">{{ info_form.awards.help_text }}</div>
+            {% endif %}
+            {% if info_form.awards.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.awards.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Языки -->
+        <div class="form-group">
+            <label for="{{ info_form.languages.id_for_label }}">{{ info_form.languages.label }}:</label>
+            {{ info_form.languages }}
+            {% if info_form.languages.help_text %}
+            <div class="help-text">{{ info_form.languages.help_text }}</div>
+            {% endif %}
+            {% if info_form.languages.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.languages.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        
+        <!-- Поле Количество проектов -->
+        <div class="form-group">
+            <label for="{{ info_form.projects_count.id_for_label }}">{{ info_form.projects_count.label }}:</label>
+            {{ info_form.projects_count }}
+            {% if info_form.projects_count.help_text %}
+            <div class="help-text">{{ info_form.projects_count.help_text }}</div>
+            {% endif %}
+            {% if info_form.projects_count.errors %}
+            <ul class="errorlist">
+                {% for error in info_form.projects_count.errors %}
+                <li style="color: #e53e3e;">{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
         
         <div style="margin-top: 30px;">
             <button type="submit" class="btn btn-success">💾 Сохранить</button>
@@ -32,4 +303,39 @@
         </div>
     </form>
 </section>
+
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+    .help-text {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+    }
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin: 5px 0 0;
+    }
+    hr {
+        margin: 30px 0;
+        border: none;
+        border-top: 2px solid #eee;
+    }
+</style>
 {% endblock %}

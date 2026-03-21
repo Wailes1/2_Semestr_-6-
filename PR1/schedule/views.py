@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from .models import Teacher, TeacherInfo, Course, Student
-from .forms import TeacherForm
+from .forms import TeacherModelForm, TeacherInfoModelForm, CourseModelForm, StudentModelForm
 
 
 # ==================== ГЛАВНАЯ ====================
@@ -46,61 +46,64 @@ def teacher_detail(request, teacher_id):
 
 
 def teacher_create(request):
-    """Создание преподавателя с использованием формы"""
+    """Создание преподавателя с использованием ModelForm"""
     if request.method == 'POST':
-        form = TeacherForm(request.POST)
-        if form.is_valid():
-            # Данные из формы валидны - создаём преподавателя
-            teacher = Teacher.objects.create(
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                email=form.cleaned_data['email'],
-                specialization=form.cleaned_data['specialization']
-            )
-            
-            # Создаем дополнительную информацию (необязательные поля)
-            TeacherInfo.objects.create(
-                teacher=teacher,
-                bio=form.cleaned_data.get('bio', ''),
-                education=form.cleaned_data.get('education', ''),
-                office_number=form.cleaned_data.get('office_number', '')
-            )
-            
+        form = TeacherModelForm(request.POST)
+        info_form = TeacherInfoModelForm(request.POST)
+        
+        if form.is_valid() and info_form.is_valid():
+            teacher = form.save()
+            info = info_form.save(commit=False)
+            info.teacher = teacher
+            info.save()
             messages.success(request, 'Преподаватель успешно создан!')
             return redirect('teacher_detail', teacher_id=teacher.id)
-        else:
-            # Форма невалидна - показываем ошибки
-            messages.error(request, 'Пожалуйста, исправьте ошибки в форме')
     else:
-        form = TeacherForm()
+        form = TeacherModelForm()
+        info_form = TeacherInfoModelForm()
     
-    return render(request, 'schedule/teacher_form.html', {'form': form})
-    
+    return render(request, 'schedule/teacher_form.html', {
+        'form': form,
+        'info_form': info_form,
+        'title': 'Добавление преподавателя'
+    })
 
 
 def teacher_update(request, teacher_id):
     """Редактирование преподавателя"""
     teacher = get_object_or_404(Teacher, id=teacher_id)
     
-    if request.method == 'POST':
-        # Обновляем преподавателя
-        teacher.first_name = request.POST['first_name']
-        teacher.last_name = request.POST['last_name']
-        teacher.email = request.POST['email']
-        teacher.specialization = request.POST['specialization']
-        teacher.save()
-        
-        # Обновляем или создаем информацию
-        info, created = TeacherInfo.objects.get_or_create(teacher=teacher)
-        info.bio = request.POST.get('bio', '')
-        info.education = request.POST.get('education', '')
-        info.office_number = request.POST.get('office_number', '')
-        info.save()
-        
-        messages.success(request, 'Данные обновлены!')
-        return redirect('teacher_detail', teacher_id=teacher.id)
+    try:
+        teacher_info = teacher.info
+    except TeacherInfo.DoesNotExist:
+        teacher_info = None
     
-    return render(request, 'schedule/teacher_form.html', {'teacher': teacher})
+    if request.method == 'POST':
+        form = TeacherModelForm(request.POST, instance=teacher)
+        if teacher_info:
+            info_form = TeacherInfoModelForm(request.POST, instance=teacher_info)
+        else:
+            info_form = TeacherInfoModelForm(request.POST)
+        
+        if form.is_valid() and info_form.is_valid():
+            teacher = form.save()
+            info = info_form.save(commit=False)
+            info.teacher = teacher
+            info.save()
+            messages.success(request, 'Данные обновлены!')
+            return redirect('teacher_detail', teacher_id=teacher.id)
+    else:
+        form = TeacherModelForm(instance=teacher)
+        if teacher_info:
+            info_form = TeacherInfoModelForm(instance=teacher_info)
+        else:
+            info_form = TeacherInfoModelForm()
+    
+    return render(request, 'schedule/teacher_form.html', {
+        'form': form,
+        'info_form': info_form,
+        'title': f'Редактирование: {teacher.last_name} {teacher.first_name}'
+    })
 
 
 def teacher_delete(request, teacher_id):
