@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Django Приложение{% endblock %}</title>
+    <title>{% block title %}Социальная сеть{% endblock %}</title>
     <style>
         * {
             margin: 0;
@@ -38,6 +38,11 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .nav-links a, .nav-links form {
+            display: inline-block;
         }
         
         .nav-links a {
@@ -51,6 +56,28 @@
         .nav-links a:hover {
             background: #667eea;
             color: white;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #333;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .user-info {
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 1rem;
         }
         
         .container {
@@ -113,7 +140,7 @@
             gap: 1rem;
         }
         
-        input {
+        input, textarea, select {
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -124,28 +151,22 @@
             font-weight: bold;
             margin-bottom: 0.25rem;
         }
-        
-        .user-info {
-            color: #667eea;
-            font-weight: bold;
-        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Навигация (Часть 5) -->
     <nav class="navbar">
-        <a href="{% url 'home' %}" class="logo">Сайт Лютикова Дмитрия Игоревича</a>
+        <a href="{% url 'home' %}" class="logo">Социальная сеть</a>
         <div class="nav-links">
             {% if user.is_authenticated %}
                 <span class="user-info">Привет, {{ user.username }}!</span>
+                <a href="{% url 'users:profile' user.username %}">Мой профиль</a>
+                <a href="{% url 'users:user_list' %}">Пользователи</a>
+                <a href="{% url 'password_change' %}">Сменить пароль</a>
                 <form action="{% url 'logout' %}" method="post" style="display: inline;">
                     {% csrf_token %}
-                    <button type="submit" style="background: none; border: none; color: #333; padding: 0.5rem 1rem; cursor: pointer; font-size: 1rem;">
-                        Выйти
-                    </button>
+                    <button type="submit" class="logout-btn">Выйти</button>
                 </form>
-                <a href="{% url 'password_change' %}">Сменить пароль</a>
             {% else %}
                 <a href="{% url 'login' %}">Войти</a>
                 <a href="{% url 'users:register' %}">Регистрация</a>
@@ -162,17 +183,15 @@
         
         {% block content %}
         <div class="card">
-            <h1>Добро пожаловать!</h1>
+            <h1>Добро пожаловать в социальную сеть!</h1>
             {% if user.is_authenticated %}
                 <p>Вы вошли как <strong>{{ user.username }}</strong>.</p>
-                <p>Ваш email: {{ user.email }}</p>
+                <p>Перейдите в <a href="{% url 'users:profile' user.username %}">свой профиль</a> или посмотрите <a href="{% url 'users:user_list' %}">список пользователей</a>.</p>
             {% else %}
                 <p>Пожалуйста, <a href="{% url 'login' %}">войдите</a> или <a href="{% url 'users:register' %}">зарегистрируйтесь</a>.</p>
             {% endif %}
         </div>
         {% endblock %}
     </div>
-    
-    {% block extra_js %}{% endblock %}
 </body>
 </html>
