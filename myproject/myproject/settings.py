@@ -95,3 +95,96 @@ EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 # Media files (для загрузки аватаров)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+import os
+import logging
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Создаем директорию для логов если её нет
+LOGS_DIR = BASE_DIR / 'logs'
+if not os.path.exists(LOGS_DIR):
+    os.makedirs(LOGS_DIR)
+
+# Настройка логгеров для каждого модуля (Часть 2)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'standard': {
+            'format': '{asctime} [{levelname}] {name}: {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'level': 'DEBUG',
+            'formatter': 'standard',
+        },
+        'file_rotate': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'standard',
+            'filename': str(LOGS_DIR / 'app.log'),
+            'maxBytes': 10485760,
+            'backupCount': 5,
+            'encoding': 'utf-8',
+        },
+        'timed_rotate': {
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'level': 'INFO',
+            'formatter': 'verbose',
+            'filename': str(LOGS_DIR / 'app_timed.log'),
+            'when': 'midnight',
+            'interval': 1,
+            'backupCount': 7,
+            'encoding': 'utf-8',
+            'delay': True,
+        },
+        'error_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',  # Только ERROR и выше
+            'formatter': 'verbose',
+            'filename': str(LOGS_DIR / 'errors.log'),
+            'maxBytes': 5242880,
+            'backupCount': 3,
+            'encoding': 'utf-8',
+        },
+    },
+    'loggers': {
+        'users': {
+            # ДОБАВИТЬ error_file в handlers!
+            'handlers': ['console', 'file_rotate', 'timed_rotate', 'error_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'users.views': {
+            # ДОБАВИТЬ error_file в handlers!
+            'handlers': ['console', 'file_rotate', 'timed_rotate', 'error_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'users.forms': {
+            # ДОБАВИТЬ error_file в handlers!
+            'handlers': ['console', 'file_rotate', 'timed_rotate', 'error_file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django': {
+            'handlers': ['console', 'file_rotate', 'error_file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+    'root': {
+        'handlers': ['console', 'error_file'],
+        'level': 'WARNING',
+    },
+}

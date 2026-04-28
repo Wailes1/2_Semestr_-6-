@@ -1,0 +1,157 @@
+2026-04-22 16:54:01 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-22 16:54:03 [INFO] django.server: "GET / HTTP/1.1" 200 4507
+2026-04-22 16:54:06 [INFO] django.server: "GET /auth/login/ HTTP/1.1" 200 5217
+2026-04-22 16:54:47 [INFO] django.server: "GET /auth/register/ HTTP/1.1" 200 6256
+2026-04-22 16:55:23 [INFO] users.views: New user registered: 'Димаааа' (email: koul@gmail.com)
+2026-04-22 16:55:23 [INFO] django.server: "POST /auth/register/ HTTP/1.1" 302 0
+2026-04-22 16:55:23 [INFO] django.server: "GET / HTTP/1.1" 200 5347
+2026-04-22 16:55:28 [INFO] django.server: "GET /auth/profile/%D0%94%D0%B8%D0%BC%D0%B0%D0%B0%D0%B0%D0%B0/ HTTP/1.1" 200 9092
+2026-04-22 16:55:50 [INFO] django.server: "POST /auth/logout/ HTTP/1.1" 302 0
+2026-04-22 16:55:50 [INFO] django.server: "GET / HTTP/1.1" 200 4507
+2026-04-22 16:55:52 [INFO] django.server: "GET /auth/login/ HTTP/1.1" 200 5217
+2026-04-22 16:55:57 [WARNING] users.views: Failed login attempt for user 'Димаааа' - invalid credentials
+2026-04-22 16:55:57 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 200 5240
+2026-04-22 16:56:29 [WARNING] users.views: Failed login attempt for user 'Димаааа' - invalid credentials
+2026-04-22 16:56:29 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 200 5240
+2026-04-22 16:56:36 [WARNING] users.views: Failed login attempt for user 'Димаааа' - invalid credentials
+2026-04-22 16:56:36 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 200 5240
+2026-04-22 16:56:54 [INFO] users.views: User 'Димаааа' logged in successfully
+2026-04-22 16:56:54 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 302 0
+2026-04-22 16:56:54 [INFO] django.server: "GET / HTTP/1.1" 200 5208
+2026-04-22 16:56:56 [INFO] django.server: "GET /auth/profile/%D0%94%D0%B8%D0%BC%D0%B0%D0%B0%D0%B0%D0%B0/ HTTP/1.1" 200 9092
+2026-04-22 16:56:56 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 13058
+2026-04-22 16:56:56 [INFO] django.server: "GET /media/avatars/2222222222222222.jpg HTTP/1.1" 304 0
+2026-04-22 16:56:59 [INFO] users.views: User 'Димаааа' added 'admin' as friend
+2026-04-22 16:56:59 [INFO] django.server: "POST /auth/add_friend/1/ HTTP/1.1" 302 0
+2026-04-22 16:56:59 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 13190
+2026-04-22 16:57:11 [INFO] users.views: User 'Димаааа' removed 'admin' from friends
+2026-04-22 16:57:11 [INFO] django.server: "POST /auth/remove_friend/1/ HTTP/1.1" 302 0
+2026-04-22 16:57:11 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 13185
+2026-04-22 16:57:18 [INFO] django.server: "GET /auth/profile/%D0%94%D0%B8%D0%BC%D0%B0%D0%B0%D0%B0%D0%B0/ HTTP/1.1" 200 9092
+2026-04-22 16:57:20 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7691
+2026-04-22 16:57:27 [INFO] users.views: User 'Димаааа' uploaded avatar: 2222222222222222.jpg (189x250, 29507 bytes)
+2026-04-22 16:57:27 [INFO] users.views: User 'Димаааа' updated profile
+2026-04-22 16:57:27 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 302 0
+2026-04-22 16:57:27 [INFO] django.server: "GET /auth/profile/%D0%94%D0%B8%D0%BC%D0%B0%D0%B0%D0%B0%D0%B0/ HTTP/1.1" 200 9165
+2026-04-22 16:57:27 [INFO] django.server: "GET /media/avatars/2222222222222222_8yQIPC4.jpg HTTP/1.1" 200 29507
+2026-04-22 16:58:08 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7980
+2026-04-22 17:02:45 [WARNING] django.request: Not Found: /categories/
+2026-04-22 17:02:45 [WARNING] django.server: "GET /categories/ HTTP/1.1" 404 2562
+2026-04-22 17:02:48 [WARNING] django.request: Not Found: /cases/
+2026-04-22 17:02:48 [WARNING] django.server: "GET /cases/ HTTP/1.1" 404 2547
+2026-04-22 17:02:49 [WARNING] django.request: Not Found: /cases/
+2026-04-22 17:02:49 [WARNING] django.server: "GET /cases/?category=3 HTTP/1.1" 404 2558
+2026-04-22 17:05:22 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\myproject\settings.py changed, reloading.
+2026-04-22 17:05:22 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:19:49 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:19:51 [INFO] django.server: "GET / HTTP/1.1" 200 4507
+2026-04-28 14:20:02 [INFO] django.server: "GET /auth/login/ HTTP/1.1" 200 5217
+2026-04-28 14:20:08 [INFO] users.views: User 'admin' logged in successfully
+2026-04-28 14:20:08 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 302 0
+2026-04-28 14:20:08 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 14:20:10 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8945
+2026-04-28 14:20:25 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:21:02 [INFO] users.views: User 'admin' uploaded avatar: DSC_5677_.jpg (1536x2304, 493713 bytes)
+2026-04-28 14:21:02 [INFO] users.views: User 'admin' updated profile
+2026-04-28 14:21:02 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 302 0
+2026-04-28 14:21:02 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 9069
+2026-04-28 14:21:02 [INFO] django.server: "GET /media/avatars/DSC_5677_.jpg HTTP/1.1" 200 493713
+2026-04-28 14:41:18 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:41:24 [INFO] users.views: User 'admin' uploaded avatar: 11111111111111111.jpg (599x800, 105272 bytes)
+2026-04-28 14:41:24 [INFO] users.views: User 'admin' updated profile
+2026-04-28 14:41:24 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 302 0
+2026-04-28 14:41:24 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 9077
+2026-04-28 14:41:24 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 200 105272
+2026-04-28 14:42:16 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:42:29 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:43:21 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:43:30 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 14:43:39 [INFO] django.server: "POST /auth/logout/ HTTP/1.1" 302 0
+2026-04-28 14:43:39 [INFO] django.server: "GET / HTTP/1.1" 200 4507
+2026-04-28 14:43:48 [INFO] django.server: "GET /auth/register/ HTTP/1.1" 200 6256
+2026-04-28 14:44:28 [INFO] users.views: New user registered: 'admin1' (email: ad@yandex.ru)
+2026-04-28 14:44:28 [INFO] django.server: "POST /auth/register/ HTTP/1.1" 302 0
+2026-04-28 14:44:28 [INFO] django.server: "GET / HTTP/1.1" 200 5251
+2026-04-28 14:45:11 [INFO] django.server: "GET /auth/profile/admin1/ HTTP/1.1" 200 9021
+2026-04-28 14:45:14 [INFO] django.server: "GET /auth/profile/admin1/ HTTP/1.1" 200 9021
+2026-04-28 14:45:14 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 14223
+2026-04-28 14:45:14 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 304 0
+2026-04-28 14:45:14 [INFO] django.server: "GET /media/avatars/2222222222222222_8yQIPC4.jpg HTTP/1.1" 304 0
+2026-04-28 14:45:14 [INFO] django.server: "GET /media/avatars/2222222222222222.jpg HTTP/1.1" 304 0
+2026-04-28 14:45:16 [INFO] users.views: User 'admin1' added 'admin' as friend
+2026-04-28 14:45:16 [INFO] django.server: "POST /auth/add_friend/1/ HTTP/1.1" 302 0
+2026-04-28 14:45:16 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 14355
+2026-04-28 14:45:24 [INFO] users.views: User 'admin1' removed 'admin' from friends
+2026-04-28 14:45:24 [INFO] django.server: "POST /auth/remove_friend/1/ HTTP/1.1" 302 0
+2026-04-28 14:45:24 [INFO] django.server: "GET /auth/users/ HTTP/1.1" 200 14350
+2026-04-28 14:45:39 [INFO] django.server: "POST /auth/logout/ HTTP/1.1" 302 0
+2026-04-28 14:45:39 [INFO] django.server: "GET / HTTP/1.1" 200 4507
+2026-04-28 14:45:40 [INFO] django.server: "GET /auth/register/ HTTP/1.1" 200 6256
+2026-04-28 14:46:16 [WARNING] users.views: Registration failed for 'admin2': {'password2': ['Введенные пароли не совпадают.']}
+2026-04-28 14:46:16 [INFO] django.server: "POST /auth/register/ HTTP/1.1" 200 6592
+2026-04-28 14:49:42 [INFO] django.server: "GET /auth/login/ HTTP/1.1" 200 5217
+2026-04-28 14:49:48 [INFO] users.views: User 'admin' logged in successfully
+2026-04-28 14:49:48 [INFO] django.server: "POST /auth/login/ HTTP/1.1" 302 0
+2026-04-28 14:49:48 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 14:49:51 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8939
+2026-04-28 14:49:51 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 304 0
+2026-04-28 14:49:52 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:50:00 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:50:01 [INFO] users.views: User 'admin' uploaded avatar: avatars/11111111111111111.jpg (599x800, 105272 bytes)
+2026-04-28 14:50:01 [INFO] users.views: User 'admin' updated profile
+2026-04-28 14:50:01 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 302 0
+2026-04-28 14:50:01 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 9077
+2026-04-28 14:52:19 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:52:29 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:53:31 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\myproject\settings.py changed, reloading.
+2026-04-28 14:53:32 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:53:40 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:53:49 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 14:53:52 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8939
+2026-04-28 14:53:52 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 304 0
+2026-04-28 14:53:53 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:53:58 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:54:52 [INFO] users.views: User 'admin' uploaded avatar: avatars/11111111111111111.jpg (599x800, 105272 bytes)
+2026-04-28 14:54:52 [INFO] users.views: User 'admin' updated profile
+2026-04-28 14:54:52 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 302 0
+2026-04-28 14:54:52 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 9077
+2026-04-28 14:54:57 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 14:55:02 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:55:28 [WARNING] django.request: Not Found: /auth/profile/nonexistent/
+2026-04-28 14:55:28 [WARNING] django.server: "GET /auth/profile/nonexistent/ HTTP/1.1" 404 3166
+2026-04-28 14:56:20 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\users\forms.py changed, reloading.
+2026-04-28 14:56:21 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:56:38 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:56:44 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:56:52 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 7963
+2026-04-28 14:58:21 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\users\forms.py changed, reloading.
+2026-04-28 14:58:22 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:58:44 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+2026-04-28 14:58:45 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 14:59:13 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:00:12 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+2026-04-28 15:00:13 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:00:17 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:00:18 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 15:00:19 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8939
+2026-04-28 15:00:20 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 304 0
+2026-04-28 15:00:20 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 15:00:26 [WARNING] users.views: User 'admin' failed to update profile. Errors: {'avatar': ['Загрузите правильное изображение. Файл, который вы загрузили, поврежден или не является изображением.']}
+2026-04-28 15:00:26 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 8119
+2026-04-28 15:01:27 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+2026-04-28 15:01:27 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:01:51 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:01:52 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 15:01:54 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8939
+2026-04-28 15:01:55 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 15:02:02 [ERROR] users.views: User 'admin' failed to update profile. Errors: {'avatar': ['Загрузите правильное изображение. Файл, который вы загрузили, поврежден или не является изображением.']}
+2026-04-28 15:02:02 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 8119
+2026-04-28 15:02:55 [INFO] django.utils.autoreload: C:\Users\Wailes\Desktop\django_catalog\myproject\myproject\settings.py changed, reloading.
+2026-04-28 15:02:56 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:02:59 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2026-04-28 15:03:12 [INFO] django.server: "GET / HTTP/1.1" 200 5116
+2026-04-28 15:03:22 [INFO] django.server: "GET /auth/profile/admin/ HTTP/1.1" 200 8939
+2026-04-28 15:03:22 [INFO] django.server: "GET /media/avatars/11111111111111111.jpg HTTP/1.1" 304 0
+2026-04-28 15:03:23 [INFO] django.server: "GET /auth/profile/edit/ HTTP/1.1" 200 7562
+2026-04-28 15:03:29 [ERROR] users.views: User 'admin' failed to update profile. Errors: {'avatar': ['Загрузите правильное изображение. Файл, который вы загрузили, поврежден или не является изображением.']}
+2026-04-28 15:03:29 [INFO] django.server: "POST /auth/profile/edit/ HTTP/1.1" 200 8119

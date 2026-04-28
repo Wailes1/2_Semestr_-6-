@@ -1,0 +1,9 @@
+INFO 2026-04-22 16:55:23,751 views 19868 21868 New user registered: 'Димаааа' (email: koul@gmail.com)
+WARNING 2026-04-22 16:55:57,818 views 19868 21868 Failed login attempt for user 'Димаааа' - invalid credentials
+WARNING 2026-04-22 16:56:29,819 views 19868 21868 Failed login attempt for user 'Димаааа' - invalid credentials
+WARNING 2026-04-22 16:56:36,725 views 19868 21868 Failed login attempt for user 'Димаааа' - invalid credentials
+INFO 2026-04-22 16:56:54,476 views 19868 21868 User 'Димаааа' logged in successfully
+INFO 2026-04-22 16:56:59,105 views 19868 21868 User 'Димаааа' added 'admin' as friend
+INFO 2026-04-22 16:57:11,220 views 19868 21868 User 'Димаааа' removed 'admin' from friends
+INFO 2026-04-22 16:57:27,303 views 19868 21868 User 'Димаааа' uploaded avatar: 2222222222222222.jpg (189x250, 29507 bytes)
+INFO 2026-04-22 16:57:27,310 views 19868 21868 User 'Димаааа' updated profile

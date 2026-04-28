@@ -1,0 +1,17 @@
+INFO 2026-04-28 14:53:40,698 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-28 14:55:28,022 log Not Found: /auth/profile/nonexistent/
+INFO 2026-04-28 14:56:20,845 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\users\forms.py changed, reloading.
+INFO 2026-04-28 14:56:21,710 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 14:56:38,717 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 14:58:21,383 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\users\forms.py changed, reloading.
+INFO 2026-04-28 14:58:22,223 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 14:58:44,979 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+INFO 2026-04-28 14:58:45,645 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 14:59:13,615 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 15:00:12,881 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+INFO 2026-04-28 15:00:13,855 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 15:00:17,287 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 15:01:27,053 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\users\views.py changed, reloading.
+INFO 2026-04-28 15:01:27,937 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 15:01:51,450 autoreload Watching for file changes with StatReloader
+INFO 2026-04-28 15:02:55,740 autoreload C:\Users\Wailes\Desktop\django_catalog\myproject\myproject\settings.py changed, reloading.
